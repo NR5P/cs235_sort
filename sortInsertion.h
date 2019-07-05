@@ -13,6 +13,24 @@
 
 #include <cassert>
 
+template <typename T>
+bool binarySearch(const T array[], int size, const T &search) {
+    int iFirst = 0;
+    int iLast = size - 1;
+
+    while (iLast >= iFirst) {
+        int iMiddle = (iLast + iFirst) / 2;
+
+        if (array[iMiddle] == search)
+            return true;
+        if (array[iMiddle] > search)
+            iLast = iMiddle - 1;
+        else 
+            iFirst = iMiddle + 1;
+    }
+    return false;
+}
+
 /*****************************************************
  * SORT INSERTION
  * Perform the insertion sort
@@ -21,6 +39,8 @@ template <class T>
 void sortInsertion(T array[], int num)
 {
 }
+
+
 
 
 #endif // SORT_INSERTION_H
