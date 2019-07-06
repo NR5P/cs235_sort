@@ -17,7 +17,7 @@ void merge(T destination[], T source1[], int size1, T source2[], int size2) {
     int i2 = 0; // array Two is iTwoStart to iTwoMax
 
     for (int iDestination = 0; iDestination < (size1 + size2); iDestination++) {
-        if (i1 <= size1 && i2 <= size2 || source1[i1] < source2[i2])
+        if (i1 <= size1 && (i2 == size2) || source1[i1] < source2[i2])
             destination[iDestination] = source1[i1++];
         else {
             destination[iDestination] = source2[i2++];
@@ -34,13 +34,16 @@ template <class T>
 void sortMerge(T array[], int num)
 {
     T *source = new T[num];
-    //source = array;
+    for (int i = 0; i < num; i++) {
+        source[i] = array[i];
+    }
 
     T *destination = new T[num];
     destination = array;
 
-    int numIterations = 0;
+    int numIterations;
     do {
+        numIterations = 0;
         int iBegin1 = 0, iBegin2 = 0, iEnd1 = 0, iEnd2 = 0;
         
         while (iBegin1 < num) {
@@ -56,9 +59,12 @@ void sortMerge(T array[], int num)
             }
             iBegin1 = iEnd2;
         }
+
+        //swap
         T *tmp = destination;
         destination = source;
         source = tmp;
+
     } while(numIterations > 1);
     if (array != source) {
         for (int i = 0; i < num; i++) {
