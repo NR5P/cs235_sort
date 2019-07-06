@@ -35,7 +35,7 @@ int binarySearch(const T array[], const T &search, int iBegin, int iEnd) {
 template <class T>
 void sortInsertion(T array[], int num)
 {
-    for (int iPivot = num - 2; iPivot > 0; iPivot--) {
+    for (int iPivot = num - 2; iPivot >= 0; iPivot--) {
         T valuePivot = array[iPivot];
         int iInsert = binarySearch(array, valuePivot, iPivot + 1, num - 1);
         iInsert--;
