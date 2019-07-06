@@ -14,20 +14,17 @@
 #include <cassert>
 
 template <typename T>
-bool binarySearch(const T array[], int size, const T &search) {
-    int iFirst = 0;
-    int iLast = size - 1;
+int binarySearch(const T array[], const T &search, int iBegin, int iEnd) {
+    int iMiddle = (iEnd + iBegin) / 2;
 
-    while (iLast >= iFirst) {
-        int iMiddle = (iLast + iFirst) / 2;
-
-        if (array[iMiddle] == search)
-            return true;
-        if (array[iMiddle] > search)
-            iLast = iMiddle - 1;
-        else 
-            iFirst = iMiddle + 1;
-    }
+    if (iBegin > iEnd)
+        return iBegin;
+    if (array[iMiddle] == search)
+        return iMiddle;
+    if (search > array[iMiddle])
+        return binarySearch(array, search, iMiddle + 1, iEnd);
+    else 
+        return binarySearch(array, search, iBegin, iMiddle - 1);
     return false;
 }
 
@@ -38,6 +35,18 @@ bool binarySearch(const T array[], int size, const T &search) {
 template <class T>
 void sortInsertion(T array[], int num)
 {
+    for (int iPivot = num - 2; iPivot > 0; iPivot--) {
+        T valuePivot = array[iPivot];
+        int iInsert = binarySearch(array, valuePivot, iPivot + 1, num - 1);
+        iInsert--;
+        int iShift = iPivot;
+        for (; iShift < iInsert; iShift++) {
+            array[iShift] = array[iShift + 1];
+        }
+        array[iShift] = valuePivot;
+        
+    }
+
 }
 
 
