@@ -5,9 +5,9 @@
 # Author:
 #     Nathan Rigg, Dallen Cluff, Griffin Pope, Dan Worwood
 # Summary:
-#     Implementation of various sort algorithms
+#     Dan Worwood, Dallen Cluff, Nathan Rigg, Griffin Pope
 # Time:
-#     12 hours
+#     10 hours
 ###############################################################
 
 ##############################################################
