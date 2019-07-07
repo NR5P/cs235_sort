@@ -12,6 +12,8 @@
 
 //namespace custom
 //{
+#define MIN 0
+
 template <class T>
 class Heap
 {
@@ -26,8 +28,8 @@ public:
     Heap(T *t, int size)
     {
         array = t;
-        num = size;
-        for (int index = num / 2; index >= 0; index--)
+        num = size - 1;
+        for (int index = num / 2; index >= MIN; index--)
         {
             percolateDown(index);
         }
@@ -46,7 +48,7 @@ template <class T>
 void Heap<T>::percolateDown(int index)
 {
 
-    assert(index >= 0 && index <= num);
+    assert(index >= MIN && index <= num);
 
     // do nothing if we are a leaf
     int indexLeft = index * 2;
@@ -89,13 +91,13 @@ void Heap<T>::heapify()
 template <class T>
 void Heap<T>::sort()
 {
-    while (num > 0)
+    while (num > MIN)
     {
         // put the highest element at the end of the list and forget about it!
-        swap(0, num--);
+        swap(MIN, num--);
 
         // percolate the root
-        percolateDown(0);
+        percolateDown(MIN);
     }
 }
 
