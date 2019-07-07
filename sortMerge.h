@@ -44,15 +44,18 @@ void sortMerge(T array[], int num)
     int numIterations;
     do {
         numIterations = 0;
-        int iBegin1 = 0, iBegin2 = 0, iEnd1 = 0, iEnd2 = 0;
+        int iBegin1 = 0, iBegin2 = 0;
         
         while (iBegin1 < num) {
             numIterations++;
-            for (iEnd1 = iBegin1 + 1; iEnd1 <= num && !(source[iEnd1 - 1] > source[iEnd1]); iEnd1++);
+
+            int iEnd1 = 0;
+            for (iEnd1 = iBegin1 + 1; iEnd1 < num && !(source[iEnd1 - 1] > source[iEnd1]); iEnd1++);
 
             iBegin2 = iEnd1;
 
-            for (iEnd2 = iBegin2 + 1; iEnd2 <= num && !(source[iEnd2 - 1] > source[iEnd2]); iEnd2++);
+            int iEnd2 = 0;
+            for (iEnd2 = iBegin2 + 1; iEnd2 < num && !(source[iEnd2 - 1] > source[iEnd2]); iEnd2++);
 
             if (iBegin2 < num) {
                 merge(destination + iBegin1, source + iBegin1, iEnd1 - iBegin1, source + iBegin2, iEnd2 - iBegin2);
