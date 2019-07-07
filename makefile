@@ -1,13 +1,13 @@
 ###############################################################
 # Program:
 #     Assignment 11, Sorts
-#     Brother XXXXX, CS235
+#     Brother JonesL, CS235
 # Author:
-#     <your name here>
+#     Nathan Rigg, Dallen Cluff, Griffin Pope, Dan Worwood
 # Summary:
-#     <put a description here>
+#     Implementation of various sort algorithms
 # Time:
-#     <how long did it take to complete this program>?
+#     12 hours
 ###############################################################
 
 ##############################################################

@@ -11,30 +11,106 @@
 #ifndef SORT_MERGE_H
 #define SORT_MERGE_H
 
-template <class T>
-void merge(T destination[], T source1[], int size1, T source2[], int size2) {
-    int i1 = 0; // array One is iOneStart to iOneMax
-    int i2 = 0; // array Two is iTwoStart to iTwoMax
+template <typename T>
+void merge(T *destination, T *source1, int size1, T *source2, int size2)
+{
+    int i1 = 0;
+    int i2 = 0;
 
-    for (int iDestination = 0; iDestination < (size1 + size2); iDestination++) {
-        if (i1 <= size1 && (i2 == size2) || source1[i1] < source2[i2])
-            destination[iDestination] = source1[i1++];
-        else {
-            destination[iDestination] = source2[i2++];
+    for (int destIndex = 0; destIndex < size1 + size2; ++destIndex)
+    {
+        if (i1 < size1 && (i2 == size2 || source1[i1] < source2[i2]))
+        {
+            destination[destIndex] = source1[i1++];
+        }
+        else
+        {
+            destination[destIndex] = source2[i2++];
         }
     }
 }
 
+template <class T>
+void sortMerge(T array[], int num)
+{
+    //make a copy of the array
+    T arraycopy[num];
+    for (int i = 0; i < num; i++)
+    {
+        arraycopy[i] = array[i];
+    }
+
+    T *destination = array;
+    T *source = &arraycopy[0];
+
+    int numIterations = 0;
+    do
+    {
+        numIterations = 0;
+        int iBegin1 = 0, iBegin2 = 0, iEnd1 = 0, iEnd2 = 0;
+        while (iBegin1 < num)
+        {
+            numIterations++;
+            for (iEnd1 = iBegin1 + 1; iEnd1 < num && !(source[iEnd1 - 1] > source[iEnd1]); iEnd1++)
+                ;
+
+            iBegin2 = iEnd1;
+
+            for (iEnd2 = iBegin2 + 1; iEnd2 < num && !(source[iEnd2 - 1] > source[iEnd2]); iEnd2++)
+                ;
+
+            if (iBegin2 < num)
+            {
+                merge(destination + iBegin1, source + iBegin1, iEnd1 - iBegin1, source + iBegin2, iEnd2 - iBegin2);
+            }
+            iBegin1 = iEnd2;
+        }
+
+        T *tmp = destination;
+        destination = source;
+        source = tmp;
+
+    } while (numIterations > 1);
+
+    if (array != source)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            array[i] = source[i];
+        }
+    }
+}
+
+/*
+template <class T>
+void merge(T destination[], T source1[], int size1, T source2[], int size2)
+{
+    int i1 = 0; // array One is iOneStart to iOneMax
+    int i2 = 0; // array Two is iTwoStart to iTwoMax
+
+    for (int iDestination = 0; iDestination < (size1 + size2); iDestination++)
+    {
+        if (i1 <= size1 && (i2 == size2) || source1[i1] < source2[i2])
+            destination[iDestination] = source1[i1++];
+        else
+        {
+            destination[iDestination] = source2[i2++];
+        }
+    }
+}
+*/
 
 /*****************************************************
  * SORT MERGE
  * Perform the merge sort
  ****************************************************/
+/*
 template <class T>
 void sortMerge(T array[], int num)
 {
     T *source = new T[num];
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; i++)
+    {
         source[i] = array[i];
     }
 
@@ -42,19 +118,24 @@ void sortMerge(T array[], int num)
     destination = array;
 
     int numIterations;
-    do {
+    do
+    {
         numIterations = 0;
         int iBegin1 = 0, iBegin2 = 0, iEnd1 = 0, iEnd2 = 0;
-        
-        while (iBegin1 < num) {
+
+        while (iBegin1 < num)
+        {
             numIterations++;
-            for (iEnd1 = iBegin1 + 1; iEnd1 <= num && !(source[iEnd1 - 1] > source[iEnd1]); iEnd1++);
+            for (iEnd1 = iBegin1 + 1; iEnd1 <= num && !(source[iEnd1 - 1] > source[iEnd1]); iEnd1++)
+                ;
 
             iBegin2 = iEnd1;
 
-            for (iEnd2 = iBegin2 + 1; iEnd2 <= num && !(source[iEnd2 - 1] > source[iEnd2]); iEnd2++);
+            for (iEnd2 = iBegin2 + 1; iEnd2 <= num && !(source[iEnd2 - 1] > source[iEnd2]); iEnd2++)
+                ;
 
-            if (iBegin2 < num) {
+            if (iBegin2 < num)
+            {
                 merge(destination + iBegin1, source + iBegin1, iEnd1 - iBegin1, source + iBegin2, iEnd2 - iBegin2);
             }
             iBegin1 = iEnd2;
@@ -65,17 +146,17 @@ void sortMerge(T array[], int num)
         destination = source;
         source = tmp;
 
-    } while(numIterations > 1);
-    if (array != source) {
-        for (int i = 0; i < num; i++) {
+    } while (numIterations > 1);
+    if (array != source)
+    {
+        for (int i = 0; i < num; i++)
+        {
             array[i] = source[i];
         }
     }
-    delete [] source;
-    delete [] destination;
+    delete[] source;
+    //delete [] destination;
 }
-
-
-
+*/
 
 #endif // SORT_MERGE_H
